@@ -62,7 +62,7 @@
 (palindrome-permutations? "taco cat" "atco cta")
 
 ;1.5
-;(string-length s1) = (string-length s1) の場合
+;(string-length s1) = (string-length s2) の場合
 (define can-convert-one-shot-replace?
   (lambda (s1 s2)
     (let loop [[count 0] [s1 s1] [s2 s2]]
@@ -73,7 +73,7 @@
          (loop count (substring s1 1) (substring s2 1)))
         (else (loop (+ count 1) (substring s1 1) (substring s2 1)))))))
 
-;(string-length s1) > (string-length s1) の場合
+;(string-length s1) > (string-length s2) の場合
 (define can-convert-one-shot-delete?
   (lambda (s1 s2)
     (cond
@@ -82,7 +82,7 @@
        (can-convert-one-shot-delete? (substring s1 1) (substring s2 1)))
       (else (string=? (substring s1 1) s2)))))
 
-;(string-length s1) < (string-length s1) の場合
+;(string-length s1) < (string-length s2) の場合
 (define can-convert-one-shot-insert?
   (lambda (s1 s2)
     (can-convert-one-shot-delete? s2 s1)))
