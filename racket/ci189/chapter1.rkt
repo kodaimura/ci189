@@ -102,3 +102,19 @@
 (can-convert-one-shot? "pales" "pale")
 (can-convert-one-shot? "pale" "bale")
 (can-convert-one-shot? "pale" "bake")
+
+;1.6
+(define string-compress
+  (lambda (str)
+    (let loop [[ret ""]
+               [s str]
+               [sf (substring str 0 1)]
+               [sfc 0]]
+      (cond
+        ((string=? s "") (let [[ret (string-append ret sf (number->string sfc))]]
+                           (if (< (string-length ret) (string-length str)) ret str)))
+        ((string=? sf (substring s 0 1)) (loop ret (substring s 1) sf (+ sfc 1)))
+        (else (loop (string-append ret sf (number->string sfc)) (substring s 1) (substring s 0 1) 1))))))
+
+(string-compress "aabcccccaaa")
+(string-compress "abcaa")
